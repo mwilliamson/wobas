@@ -50,3 +50,16 @@ def punctuation_is_not_tokenised(context):
     bucket = bucket_generator.generate_bucket_from_source_string(source_string, size=1)
     assert_equal({"two": 1}, bucket)
 
+
+@istest
+@funk.with_context
+def non_english_words_are_not_included_in_bucket(context):
+    source_string = "garble grijasf"
+    
+    random = context.mock()
+    funk.allows(random).sample(["garble"], 1).returns(["garble"])
+    
+    bucket_generator = buckets.BucketGenerator(random=random)
+    bucket = bucket_generator.generate_bucket_from_source_string(source_string, size=1)
+    assert_equal({"garble": 1}, bucket)
+
