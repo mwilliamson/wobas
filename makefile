@@ -1,7 +1,7 @@
 .PHONY: test upload clean bootstrap setup
 
 test:
-	_virtualenv/bin/nosetests tests
+	NLTK_DATA=_nltk_data _virtualenv/bin/nosetests tests
 	
 upload: setup assert-converted-readme
 	python setup.py sdist upload
@@ -27,6 +27,10 @@ ifneq ($(wildcard test-requirements.txt),)
 	_virtualenv/bin/pip install -r test-requirements.txt
 endif
 	make clean
+	make _nltk_data
+	
+_nltk_data:
+	_virtualenv/bin/python -m nltk.downloader -d _nltk_data all
 
 setup: README
 

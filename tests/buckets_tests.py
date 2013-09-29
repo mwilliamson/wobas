@@ -36,3 +36,17 @@ def bucket_can_have_same_word_multiple_times(context):
     bucket_generator = buckets.BucketGenerator(random=random)
     bucket = bucket_generator.generate_bucket_from_source_string(source_string, size=2)
     assert_equal({"two": 2}, bucket)
+
+
+@istest
+@funk.with_context
+def punctuation_is_not_tokenised(context):
+    source_string = "one. two"
+    
+    random = context.mock()
+    funk.allows(random).sample(["one", "two"], 1).returns(["two"])
+    
+    bucket_generator = buckets.BucketGenerator(random=random)
+    bucket = bucket_generator.generate_bucket_from_source_string(source_string, size=1)
+    assert_equal({"two": 1}, bucket)
+

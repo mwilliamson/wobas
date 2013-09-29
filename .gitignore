@@ -1,3 +1,4 @@
 /_virtualenv
 /*.egg-info
 *.pyc
+/_nltk_data
