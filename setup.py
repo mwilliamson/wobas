@@ -18,7 +18,8 @@ setup(
     install_requires=[
         "nltk>=2.0.4,<3.0",
         "zuice>=0.2.4,<0.3",
-        "funk>=0.3,<0.4",
+        "werkzeug>=0.9.4,<0.10",
+        "jinja2>=2.7.1,<2.8",
     ],
     keywords="word bucket spoon",
 )
